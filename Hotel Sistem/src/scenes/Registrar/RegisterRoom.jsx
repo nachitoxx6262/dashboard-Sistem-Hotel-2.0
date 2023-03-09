@@ -23,7 +23,8 @@ const RegisterRoom = () => {
 
   const handleSubmit = (e) => {
 e.preventDefault()
-    const response = registerRoom(number,capacity,type)
+  let status = "libre"
+    const response = registerRoom(number,capacity,type,status)
   };
   return (
     <Box m="20px">

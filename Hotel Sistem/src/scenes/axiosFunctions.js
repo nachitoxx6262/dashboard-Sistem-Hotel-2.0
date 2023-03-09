@@ -24,11 +24,11 @@ export const updateDate = async(fullfecha,id)=>{
   });
   return response
 }
-export const registerRoom = async(number,capacity,type)=>{
+export const registerRoom = async(number,capacity,type,status)=>{
   let response = await axios({
     url: `http://localhost:3001/room`,
     method: "POST",
-    data: {number,capacity,type},
+    data: {number,capacity,type,status},
   })
   return response
 }
@@ -44,10 +44,11 @@ export const deleteRoom = async(id)=>{
 }
 
 export const updateStatusRoom = async(id,status)=>{
+  console.log(id,status)
   let response = await axios({
-    url:`http://localhost:3001/room/${id}`,
+    url:`http://localhost:3001/room`,
     method: "PUT",
-    data: {status}
+    data: {id,status}
   })
   console.log(response)
   return response

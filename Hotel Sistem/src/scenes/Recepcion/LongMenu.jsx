@@ -26,24 +26,19 @@ const dispatch = useDispatch()
     const target = event.currentTarget;
     setAnchorEl(target);
   };
-
   const handleClose = (event) => {
     const name = event.target.innerHTML;
     setValue(name)
     setAnchorEl(null);
   };
-
   const optionClick = async (e)=>{
     let response = await deleteRoom(id)
-    setA(response.message)
+    setA(response)
     
   }
 useEffect(() => {
-  return () => {
     dispatch(getRooms())
-  }
 }, [a])
-
   return (
     <Box width="2rem" height="2rem">
       <IconButton

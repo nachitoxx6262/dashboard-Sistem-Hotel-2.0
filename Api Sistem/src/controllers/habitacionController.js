@@ -4,17 +4,20 @@ const getHabitacion =async()=>{
     let habitaciones = await Habitacion.findAll();
     return habitaciones;
 }
-const postHabitacion =async(number,capacity,type)=>{
+const postHabitacion =async(number,capacity,type,status)=>{
     let habitacion = await Habitacion.create({
         number_room : number,
         capacity: capacity,
-        status: false,
+        status: status,
         type: type
     })
     return habitacion
 }
-const putHabitacion =()=>{
-    
+const putHabitacion =async(id,status)=>{
+    const habitacion = await Habitacion.findByPk(id)
+    const result = await habitacion.update({status})
+    const {dataValues} = await Habitacion.findByPk(id)
+    return {message:`El estado de la Habitación ${dataValues.number_room} fue actualizado con exito`}
 }
 const deleteHabitacion =async(id)=>{
     const habitacion = await Habitacion.findByPk(id)

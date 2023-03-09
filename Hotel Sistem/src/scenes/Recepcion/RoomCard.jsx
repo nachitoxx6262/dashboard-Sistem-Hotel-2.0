@@ -1,28 +1,41 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { tokens } from "../../theme";
 import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 import CheckIcon from "@mui/icons-material/Check";
 import ReportIcon from "@mui/icons-material/Report";
 import LongMenu from "./LongMenu";
 import { updateStatusRoom } from "../axiosFunctions";
+import ReservaDialog from "./ReservaDialog"
+import { getRooms } from "../../Redux/action";
+import { useSelector, useDispatch } from "react-redux";
+
 const RoomCard = ({ room }) => {
+  const dispatch = useDispatch()
   // COLORS
   const theme = useTheme();
   const colors = tokens(theme.palette.mode); 
   // VARIABLES
-  const [status,setStatus] = useState("libre")
-  let {id, number_room, capacity, type } = room;
+  let {id, number_room, capacity, type,status } = room;
+  const [a,setA] = useState("")
+  const reservaClick= async()=>{
+    let response =  await updateStatusRoom(id,"ocupada")
+    setA(response)
+  }
+  const mantenimientoClick= async()=>{
+    let response = await updateStatusRoom(id,"mantenimiento")
+    setA(response)
+   
+  }
+  const altaClick=async ()=>{
+    let response = await updateStatusRoom(id,"libre")
+    setA(response)
 
-  const reservaClick=()=>{
-    let response = updateStatusRoom("ocupada")
   }
-  const mantenimientoClick=()=>{
-    setStatus("mantenimiento")
-  }
-  const altaClick=()=>{
-    setStatus("libre")
-  }
+  useEffect(() => {
+    dispatch(getRooms())
+  }, [a])
+  
   return (
     <Box
       backgroundColor={
@@ -46,7 +59,9 @@ const RoomCard = ({ room }) => {
           {type}
         </Typography>
         <Typography variant="h4">Capacidad: 0/{capacity}</Typography>
-        {status=="libre"? ( <Button onClick={reservaClick} variant="outlined">Reservar</Button>):status=="ocupada"?( <Button variant="outlined" onClick={mantenimientoClick}>Mantenimiento</Button>):( <Button variant="outlined" onClick={altaClick}>Dar de alta</Button>)}
+        <Box>
+        {status=="libre"? ( <><ReservaDialog id={id} /> <Button onClick={reservaClick}>Omitir Reserva</Button></>):status=="ocupada"?( <Button variant="outlined" onClick={mantenimientoClick}>Mantenimiento</Button>):( <Button variant="outlined" onClick={altaClick}>Dar de alta</Button>)}
+        </Box>
          
       </Box>
       <Box>

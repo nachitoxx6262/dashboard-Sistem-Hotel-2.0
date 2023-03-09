@@ -10,13 +10,14 @@ room.get("/",async (req, res) => {
 
 // POST CREAR HABITACIONES
 room.post("/",async (req, res) => {
-    let {number,capacity,type} = req.body
-    let habitaciones = await postHabitacion(number,capacity,type);
+    let {number,capacity,type,status} = req.body
+    let habitaciones = await postHabitacion(number,capacity,type,status);
     res.json(habitaciones);
 })
 // PUT MODIFICAR HABITACION
-room.post("/",async (req, res) => {
-    let habitaciones = await putHabitacion();
+room.put("/",async (req, res) => {
+    let {id,status} = req.body
+    let habitaciones = await putHabitacion(id,status);
     res.json(habitaciones);
 })
 // DELETE ELIMINAR HABITACION
