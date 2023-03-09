@@ -1,8 +1,9 @@
 const { Router } = require("express");
 
-const client = require("./clients.js");
-const empresa = require("./company.js")
-const room = require("./habitacion.js")
+const booking = require("./Booking.js")
+const client = require("./Client.js");
+const empresa = require("./Company.js")
+const room = require("./Room.js")
 const router = Router();
 
 // Configurar los routers
@@ -10,5 +11,6 @@ const router = Router();
 router.use("/client", client);
 router.use("/company", empresa);
 router.use("/room", room);
+router.use("/booking", booking);
 
 module.exports = router;

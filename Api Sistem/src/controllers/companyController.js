@@ -1,16 +1,16 @@
-const { Empresa } = require("../db.js");
+const { Company } = require("../db.js");
 const axios = require("axios");
 const { Op, DataTypes } = require("sequelize");
-  // #################🚨 GET Empresa 🚨    ####################
+  // #################🚨 GET Company 🚨    ####################
   const getCompany = async (name) => {
-      let empresas = await Empresa.findAll();
+      let empresas = await Company.findAll();
 
       return empresas;
   };
-  // #################🚨 POST Empresa  🚨    ####################
+  // #################🚨 POST Company  🚨    ####################
   const createCompany = async (name,cuit,tel,adress,email,visit,blacklist,description) => {
     if (cuit) {
-      let check = await Empresa.findAll({
+      let check = await Company.findAll({
         where: { cuit: cuit },
       });
       if (check.length == 1) {
@@ -18,14 +18,14 @@ const { Op, DataTypes } = require("sequelize");
       }
     }
     if(name){
-      let nameExist = await Empresa.findAll({
+      let nameExist = await Company.findAll({
         where: { name: name },
       });
       if (nameExist.length == 1) {
         return { message: `Esta empresa ya existe ${nameExist[0].dataValues.name}`, alert: true };
       }
-      const newClient = await Empresa.create({ name, cuit, tel, adress, email, visit, blacklist, description });
-      return { message: `Empresa creada: ${newClient.name}`, alert: false };
+      const newClient = await Company.create({ name, cuit, tel, adress, email, visit, blacklist, description });
+      return { message: `Company creada: ${newClient.name}`, alert: false };
     }else{
       return { message: `Falta el Nombre de la empresa`, alert: true };
     }
@@ -33,7 +33,7 @@ const { Op, DataTypes } = require("sequelize");
 
   const deleteCompany =async(id)=>{
     try {
-      const result = await Empresa.destroy({
+      const result = await Company.destroy({
         where: {
           id: id // el id del registro que se desea eliminar
         }
@@ -41,18 +41,18 @@ const { Op, DataTypes } = require("sequelize");
       if (result === 0) {
         throw new Error(`No se encontró ningúna empresa con id ${id}`);
       }
-      console.log(`Empresa con id ${id} eliminado exitosamente`);
+      console.log(`Company con id ${id} eliminado exitosamente`);
     } catch (error) {
       console.log('Error al eliminar el empresa:', error);
     }
   }
 
-// #################🚨 GET Clientes by DNI 🚨    ####################
+// #################🚨 GET Clients by DNI 🚨    ####################
 const updateCompany= async(id, datos)=> {
   let {name,cuit,tel,adress,email,visit,description,blacklist} = datos
   try {
     // Busca la persona por ID
-    const company = await Empresa.findOne({
+    const company = await Company.findOne({
       where: {
         id: id
       }

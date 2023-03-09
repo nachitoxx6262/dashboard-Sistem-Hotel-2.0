@@ -4,54 +4,33 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "Empresa",
+    "Room",
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
+      number_room: {
+        type: DataTypes.INTEGER,
+        unique: false,
+        allowNull: false,
+      },
+      capacity: {
+        type: DataTypes.INTEGER,
+        unique: false,
+        allowNull: false,
+      },
+      type: {
         type: DataTypes.STRING,
         unique: false,
         allowNull: false,
       },
-      cuit: {
+      status: {
         type: DataTypes.STRING,
         unique: false,
         allowNull: false,
-      },
-      tel:{
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: false,
-      },
-      adress: {
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: true,
-      },
-      email:{
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: true,
-      },
-      visit:{
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: true,
-      },
-      description:{
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: true,
-      },
-      blacklist:{
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: false,
-        defaultValue: "false",
-      },
+      }
     },
   );
 };

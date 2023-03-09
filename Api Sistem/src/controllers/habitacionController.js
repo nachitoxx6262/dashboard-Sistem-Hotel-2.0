@@ -1,11 +1,11 @@
-const { Habitacion } = require("../db.js");
+const { Room } = require("../db.js");
 const { Op, DataTypes } = require("sequelize");
-const getHabitacion =async()=>{
-    let habitaciones = await Habitacion.findAll();
+const getRoom =async()=>{
+    let habitaciones = await Room.findAll();
     return habitaciones;
 }
-const postHabitacion =async(number,capacity,type,status)=>{
-    let habitacion = await Habitacion.create({
+const postRoom =async(number,capacity,type,status)=>{
+    let habitacion = await Room.create({
         number_room : number,
         capacity: capacity,
         status: status,
@@ -13,24 +13,25 @@ const postHabitacion =async(number,capacity,type,status)=>{
     })
     return habitacion
 }
-const putHabitacion =async(id,status)=>{
-    const habitacion = await Habitacion.findByPk(id)
+const putRoom =async(id,status)=>{
+    const habitacion = await Room.findByPk(id)
     const result = await habitacion.update({status})
-    const {dataValues} = await Habitacion.findByPk(id)
+    const {dataValues} = await Room.findByPk(id)
     return {message:`El estado de la Habitación ${dataValues.number_room} fue actualizado con exito`}
 }
-const deleteHabitacion =async(id)=>{
-    const habitacion = await Habitacion.findByPk(id)
-    const result = await Habitacion.destroy({
-        where: {
-          id: id // el id del registro que se desea eliminar
-        }})
-    console.log(result)
-   if(result==1) {
-    return{message: `La habitacion ${habitacion.number_room} se ha eliminado correctamente`}
-   }else{
-    return{message: `Ocurrió un error al eliminar una habitación`}
-   }
+const deleteRoom =async(id)=>{
+    try{
+        const habitacion = await Room.findByPk(id)
+        const result = await habitacion.destroy()
+       if(result==1) {
+        return{message: `La habitacion ${habitacion.number_room} se ha eliminado correctamente`}
+       }else{
+        return{message: `Ocurrió un error al eliminar una habitación`}
+       }
+
+    }catch(err){
+        console.log(err)
+    }
 }   
 
-module.exports = {getHabitacion,postHabitacion,putHabitacion,deleteHabitacion}
+module.exports = {getRoom,postRoom,putRoom,deleteRoom}
