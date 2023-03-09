@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const {getCompany, createCompany,deleteCompany,updateCompany} = require("../controllers/companyController.js");
-const empresa = Router();
+const company = Router();
 
-empresa.get("/",async (req, res) => {
+company.get("/",async (req, res) => {
     let company = await getCompany();
     res.json(company);
 
 })
-empresa.put("/:id", async (req, res) => {
+company.put("/:id", async (req, res) => {
   let id = req.params.id;
   let datos = req.body;
   console.log(id);
@@ -18,7 +18,7 @@ empresa.put("/:id", async (req, res) => {
     res.status(404).json({ APIerror: err.message });
   }
 });
-empresa.post("/", async (req, res) => {
+company.post("/", async (req, res) => {
     let {name,cuit,tel,adress,email,visit,blacklist,description} =req.body;
   
     try {
@@ -28,7 +28,7 @@ empresa.post("/", async (req, res) => {
       res.status(404).json({ APIerror: err.message });
     }
   });
-  empresa.delete("/:id", async (req, res) => {
+  company.delete("/:id", async (req, res) => {
     let id = req.params.id;
     try {
       let cliente = await deleteCompany(id);
@@ -38,4 +38,4 @@ empresa.post("/", async (req, res) => {
     }
   });
 
-module.exports = empresa;
+module.exports = company;

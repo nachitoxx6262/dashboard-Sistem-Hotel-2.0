@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {getHabitacion,postHabitacion,putHabitacion,deleteHabitacion} = require("../controllers/habitacionController.js");
+const {getHabitacion,postHabitacion,putHabitacion,deleteHabitacion} = require("../controllers/roomController.js");
 const room = Router();
 
 // GET TRAER HABITACIONES
