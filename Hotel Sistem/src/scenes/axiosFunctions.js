@@ -1,9 +1,10 @@
 import axios from "axios";
-export const registerFamily = async(data)=>{
-     let response = await axios({
-        url: "http://localhost:3001/client",
+export const registerFamily = async(passengers, id,From,To,price)=>{
+  console.log(From,To)
+  let response = await axios({
+        url: `http://localhost:3001/client/${id}`,
         method: "POST",
-        data: data,
+        data: {passengers,From,To,price},
       });
       return response
 }
@@ -52,4 +53,13 @@ export const updateStatusRoom = async(id,status)=>{
   })
   console.log(response)
   return response
+}
+export const bookingRoom= async(data)=>{
+  console.log(data.roomId)
+  let response = await axios({
+        url: "http://localhost:3001/booking",
+        method: "POST",
+        data: data,
+      })
+      return response;  
 }

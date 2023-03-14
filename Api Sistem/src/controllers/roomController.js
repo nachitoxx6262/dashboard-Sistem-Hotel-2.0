@@ -1,7 +1,25 @@
-const { Room } = require("../db.js");
+const { Room,Booking } = require("../db.js");
 const { Op, DataTypes } = require("sequelize");
+const sequelize = require('sequelize');
+
 const getRoom =async()=>{
-    let habitaciones = await Room.findAll();
+    const habitaciones = await Room.findAll({
+        include: [{
+            model: Booking,
+            attributes: ['price'],
+            required: false
+          }],
+        attributes: [
+          'id',
+          'number_room',
+          'capacity',
+          'type',
+          'status',
+          [sequelize.literal('(SELECT COALESCE(SUM(person_number), 0) FROM "Bookings" WHERE "RoomId" = "Room"."id")'), 'person_number'],
+          [sequelize.fn('COALESCE', sequelize.col('Bookings.price'), 0), 'price']
+        ]
+      });
+      console.log(habitaciones)
     return habitaciones;
 }
 const postRoom =async(number,capacity,type,status)=>{

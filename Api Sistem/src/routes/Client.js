@@ -10,18 +10,19 @@ const client = Router();
 
 // #################🚨 GET 🚨    ####################
 // POST DEL CLIENTE
-client.post("/", async (req, res) => {
-  let {name,gender,dni,birthdate,tel,adress,visit,blacklist,email,company,description} =req.body;
+client.post("/:id", async (req, res) => {
+let {passengers,From,To,price} = req.body
+console.log(From,To)
+ let {id} = req.params
+     try {
+       let cliente = await createClient(passengers,id,From,To,price);
+       console.log(cliente)
 
-  try {
-    let cliente = await createClient(name,gender,dni,birthdate,tel,adress,visit,blacklist,email,company,description);
-    console.log(cliente)
-
-    res.json(cliente);
-  }catch (err) {
-    console.log(err)
-    res.status(404).json({ APIerror: err.message });
-  }
+       res.json(cliente);
+     }catch (err) {
+       console.log(err)
+       res.status(404).json({ APIerror: err.message });
+     }
 });
 // GET DEL CLIENTE por dni o no
 client.get("/:dni", async (req, res) => {
@@ -53,7 +54,7 @@ client.put("/:id", async (req, res) => {
   }
 });
 client.put("/date/:id", async (req, res)=>{
-  
+  console.log(req.body)
   let id = req.params.id;
   let visit = req.body.date
   try {

@@ -34,17 +34,12 @@ const { Client,Company,Booking,Room,History } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Client.belongsToMany(Company, { through: 'Clientmpresa' });
-Company.belongsToMany(Client, { through: 'Clientmpresa' });
+Client.belongsToMany(Booking, { through: 'clientes_reservas' });
+Booking.belongsToMany(Client, { through: 'clientes_reservas' });
 
 Room.hasMany(Booking);
 Booking.belongsTo(Room);
 
-Booking.hasMany(Client);
-Client.belongsTo(Booking);
-
-History.belongsTo(Room, { foreignKey: 'habitacionId' });
-History.hasMany(Client, { foreignKey: 'historialId' });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

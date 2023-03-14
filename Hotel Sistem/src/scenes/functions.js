@@ -1,3 +1,5 @@
+import moment from "moment"; // Importar Moment.js
+
 export const inputsCheckInEmpresa = [
   { name: "Telefono ", valor: "tel", type: "number" },
   { name: "Direccion ", valor: "adress", type: "text" },
@@ -128,26 +130,52 @@ export const columnCompany = [
   },
 ];
 
+export const data_Dni = (datospersonales, form, check, id) => {
+  let { tel, address, email, description } = form;
+  let name = `${datospersonales[1] + " " + datospersonales[2]}`;
+  let gender = `${datospersonales[3]}`;
+  let dni = `${datospersonales[4]}`;
+  let birthdate = `${datospersonales[6]}`;
+  let blacklist = check ? "✅" : "❌";
+  return {
+    name,
+    gender,
+    dni,
+    birthdate,
+    tel,
+    address,
+    blacklist,
+    email,
+    description,
+    id,
+  };
+};
+export const data_DniI = (datospersonales, form, check, id) => {
+  let { tel, adress, email, description } = form;
+  let name = `${datospersonales[3] + " " + datospersonales[4]}`;
+  let gender = `${datospersonales[7]}`;
+  let dni = `${datospersonales[0]}`;
+  let birthdate = `${datospersonales[6]}`;
+  let blacklist = check ? "✅" : "❌";
+  return {
+    name,
+    gender,
+    dni,
+    birthdate,
+    tel,
+    adress,
+    blacklist,
+    email,
+    description,
+    id,
+  };
+};
 
-export const data_Dni = (datospersonales,form,date,check,empresa)=>{
-  let {tel,address,email,description} = form
-  let name = `${datospersonales[1] + " " + datospersonales[2]}`
-  let gender = `${datospersonales[3]}`
-  let dni = `${datospersonales[4]}`
-  let birthdate= `${datospersonales[6]}`
-  let visit = date.toISOString().slice(0, 10)
-  let blacklist = check? "✅" : "❌"
-  let company = empresa? empresa : "Familia"
-  return {name,gender,dni,birthdate,tel,address,blacklist,email,description}
-}
-export const data_DniI= (datospersonales,form,date,check,empresa)=>{
-  let {tel,adress,email,description} = form
-  let name= `${datospersonales[3] + " " + datospersonales[4]}`
-  let gender= `${datospersonales[7]}`
-  let dni= `${datospersonales[0]}`
-  let birthdate= `${datospersonales[6]}`
-  let visit = date.toISOString().slice(0, 10)
-  let blacklist = check? "✅" : "❌"
-  let company = empresa? empresa : "Familia"
-  return {name,gender,dni,birthdate,tel,adress,visit,blacklist,email,description,company}
-}
+export const dateFormater = (date) => {
+  const fecha = new Date(date);
+  const anio = fecha.getFullYear();
+  const mes = ("0" + (fecha.getMonth() + 1)).slice(-2);
+  const dia = ("0" + fecha.getDate()).slice(-2);
+  const fechaFormateada = anio + "/" + mes + "/" + dia;
+  return fechaFormateada; // Salida: "2023/03/14"
+};

@@ -16,7 +16,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu({id}) {
+export default function DeleteRoomCard({id}) {
 const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null);
   const [value, setValue] = useState(false)

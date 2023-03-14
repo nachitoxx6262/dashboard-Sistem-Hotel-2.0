@@ -9,19 +9,27 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    fecha_ingreso: {
+    person_number:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    from: {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    fecha_salida: {
+    to: {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    descripcion: {
+    description: {
       type: DataTypes.STRING,
       allowNull: true,
     },
