@@ -20,7 +20,7 @@ import RegisterFactory from "./scenes/Registrar/RegisterFactory";
 import NaDni from "./scenes/Registrar/NaDni";
 import Recepcion from "./scenes/Recepcion/Recepcion";
 import RegisterRoom from "./scenes/Registrar/RegisterRoom";
-
+// import Calendar from "./scenes/calendar/calendar"
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -48,9 +48,8 @@ function App() {
               <Route path="/registerfamily" element={<RegisterFamily />} />
               <Route path="/registercompany" element={<RegisterFactory />} />
               <Route path="/client/sindni" element={<NaDni />} />
-
-              {/* <Route path="/calendar" element={<Calendar />} /> */}
-              <Route path="/geography" element={<Geography />} />
+              
+               {/* <Route path="/calendar" element={<Calendar />} />  */}
             </Routes>
           </main>
         </div>

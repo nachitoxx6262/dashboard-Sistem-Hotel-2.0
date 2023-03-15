@@ -6,21 +6,8 @@ const  sequelize =require("sequelize");
 const moment = require('moment');
 // #################🚨 GET  🚨    ####################
 const getClient = async (name) => {
-  let clients = await Client.findAll({
-    include: [
-      { model: Company, attributes: ["name"], through: { attributes: [] } },
-    ],
-  });
-
-  const clientsFormatted = clients.map((client) => {
-    const empresas = client.Companys.map((empresa) => empresa.name);
-    return {
-      ...client.toJSON(),
-      Company: empresas.join(", ") || null,
-    };
-  });
-
-  return clientsFormatted;
+  let clients = await Client.findAll();
+  return clients;
 };
 // #################🚨 CREATE Clients 🚨    ####################
 const createClient = async (passenger,id,From,To,price) => {
@@ -69,20 +56,8 @@ const createClient = async (passenger,id,From,To,price) => {
 // } catch (error) {
 //   console.log(error)
 // }
-// #################🚨 GET Clients by DNI 🚨    ####################
-const getClientByDni = async (dni) => {
-  let result = await Client.findAll({
-    where: { dni: dni },
-  });
-  if (result) return result[0];
-  else {
-    {
-      throw new Error("Id not found");
-    }
-  }
-};
-// #################🚨 GET Clients by DNI 🚨    ####################
-const actualizarPersonaPorDNI = async (id, datos) => {
+// ##############🚨 GET Clients by DNI 🚨    ####################
+const updateClientByID = async (id, datos) => {
   let { name, dni, sexo, fechanac, visitas, email, direccion, blacklist, tel } =
     datos;
   try {
@@ -129,23 +104,11 @@ const deleteClient = async (id) => {
     console.log("Error al eliminar el usuario:", error);
   }
 };
-const updateDate = async (id, visit) => {
-  console.log(visit);
-  try {
-    const clienteExistente = await Client.findOne({ where: { id } });
-    const nuevaVisita = clienteExistente.visit + " " + visit;
-    await Client.update({ visit: nuevaVisita }, { where: { id } });
-    return { message: "ok", alert: false };
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 module.exports = {
   getClient,
   createClient,
-  getClientByDni,
-  actualizarPersonaPorDNI,
+  updateClientByID,
   deleteClient,
-  updateDate,
 };

@@ -75,7 +75,7 @@ const ClientSave = ({ params, rowId, setRowId }) => {
             width: 40,
             height: 40,
           }}
-          disabled={params.id !== rowId || loading}
+          disabled={loading}
           onClick={handleSubmit}
         >
           <Save />

@@ -13,6 +13,7 @@ import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import OcuparDialog from "./OcuparDialog";
 import RegisterCustomer from "./RegisterCustomer";
 import { ViewRoom } from "./ViewRoom";
+import { Link } from "react-router-dom";
 const RoomCard = ({ room }) => {
   const dispatch = useDispatch();
   // COLORS
@@ -85,6 +86,11 @@ const RoomCard = ({ room }) => {
             <Button variant="outlined" onClick={mantenimientoClick}>
               Mantenimiento
             </Button>
+            <Link to={`/viewroom/${id}`} style={{textDecoration:"none"}}>
+            <Button variant="outlined">
+              Detalle completo
+            </Button>
+            </Link>
             </>
           ) : status == "reservada" ? (
             <Button variant="outlined" onClick={reservaClick}>
