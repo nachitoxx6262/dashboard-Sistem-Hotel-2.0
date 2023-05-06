@@ -16,7 +16,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -157,15 +158,22 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Administracion
             </Typography>
-            {/* <Item
-              title="Profile Form"
-              to="/form"
-              icon={<PersonOutlinedIcon />}
+            <Item
+              title="Importes"
+              to="/amount"
+              icon={<CurrencyExchangeIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
+            <Item
+            title="Habitaciones"
+            to="/registerroom"
+            icon={<MeetingRoomIcon  />}
+            selected={selected}
+            setSelected={setSelected}
+          />
             <Item
               title="Calendario"
               to="/calendar"

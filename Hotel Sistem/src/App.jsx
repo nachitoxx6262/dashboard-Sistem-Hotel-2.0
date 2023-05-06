@@ -19,7 +19,7 @@ import RegisterFamily from "./scenes/Registrar/RegisterFamily";
 import RegisterFactory from "./scenes/Registrar/RegisterFactory";
 import NaDni from "./scenes/Registrar/NaDni";
 import Recepcion from "./scenes/Recepcion/Recepcion";
-import RegisterRoom from "./scenes/Registrar/RegisterRoom";
+import RegisterRoom from "./scenes/Registrar/RoomRegister/RegisterRoom";
 // import Calendar from "./scenes/calendar/calendar"
 function App() {
   const [theme, colorMode] = useMode();

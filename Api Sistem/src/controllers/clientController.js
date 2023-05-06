@@ -12,10 +12,6 @@ const getClient = async (name) => {
 // #################🚨 CREATE Clients 🚨    ####################
 const createClient = async (passenger,id,From,To,price) => {
   let cantPassenger = passenger.length
-  // FORMATEO LA FECHA
-  // const fromFormateada = moment(From, 'DD/MM/YYYY').format('YYYY-MM-DD');
-  // const toFormateada = moment(To, 'DD/MM/YYYY').format('YYYY-MM-DD');
-  console.log(From,To)
   // CREO LA RESERVA
   const reserva = await Booking.create({name:"No Reservada",price,person_number:cantPassenger,from:From,to:To})
   // BUSCO LA HABITACION Y LE ACTUALIZO EL STATUS

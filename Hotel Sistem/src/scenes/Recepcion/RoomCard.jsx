@@ -6,14 +6,16 @@ import CheckIcon from "@mui/icons-material/Check";
 import ReportIcon from "@mui/icons-material/Report";
 import DeleteRoomCard from "./DeleteRoomCard";
 import { updateStatusRoom } from "../axiosFunctions";
-import ReservaDialog from "./ReservaDialog";
 import { getRooms } from "../../Redux/action";
 import { useSelector, useDispatch } from "react-redux";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
-import OcuparDialog from "./OcuparDialog";
-import RegisterCustomer from "./RegisterCustomer";
 import { ViewRoom } from "./ViewRoom";
 import { Link } from "react-router-dom";
+import RoomDetail from "./RoomDetail";
+
+
+
+
 const RoomCard = ({ room }) => {
   const dispatch = useDispatch();
   // COLORS
@@ -50,7 +52,7 @@ const RoomCard = ({ room }) => {
           : colors.blueAccent[800]
       }
       width="19rem"
-      height="19rem"
+      height="13rem"
       display="flex"
       flexDirection="row"
       alignItems="flex-start"
@@ -86,11 +88,7 @@ const RoomCard = ({ room }) => {
             <Button variant="outlined" onClick={mantenimientoClick}>
               Mantenimiento
             </Button>
-            <Link to={`/viewroom/${id}`} style={{textDecoration:"none"}}>
-            <Button variant="outlined">
-              Detalle completo
-            </Button>
-            </Link>
+            <RoomDetail room={room} />
             </>
           ) : status == "reservada" ? (
             <Button variant="outlined" onClick={reservaClick}>

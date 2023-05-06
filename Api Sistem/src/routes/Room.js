@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {getRoom,postRoom,putRoom,deleteRoom} = require("../controllers/roomController.js");
+const {getRoom,postRoom,putStatusRoom,deleteRoom} = require("../controllers/roomController.js");
 const room = Router();
 
 // GET TRAER HABITACIONES
@@ -14,10 +14,10 @@ room.post("/",async (req, res) => {
     let habitaciones = await postRoom(number,capacity,type,status);
     res.json(habitaciones);
 })
-// PUT MODIFICAR HABITACION
+// PUT MODIFICAR EL ESTADO DE LA HABITACION
 room.put("/",async (req, res) => {
     let {id,status} = req.body
-    let habitaciones = await putRoom(id,status);
+    let habitaciones = await putStatusRoom(id,status);
     res.json(habitaciones);
 })
 // DELETE ELIMINAR HABITACION

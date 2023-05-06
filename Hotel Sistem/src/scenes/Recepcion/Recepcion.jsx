@@ -22,17 +22,6 @@ console.log(rooms)
   return (
     <Box m="20px">
       <Header title="RECEPCIÓN" subtitle="Lista de habitaciones" />
-      <Link to="/registerroom" style={{textDecoration:"none"}}>
-            <Button sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}>
-              Registrar Habitación
-            </Button>
-          </Link>
           <Box display="flex" justifyContent="center" flexWrap="wrap" gap="2rem" marginTop="10px">
             {
               rooms.map((room) => {
