@@ -1,16 +1,10 @@
 const { Booking, Room } = require("../db.js");
 
-const createBooking = async ({
-  name,
-  price,
-  person_number,
-  from,
-  to,
-  description,
-  roomId,
-  status,
-}) => {
+const createBooking = async (selectedPasajeros,from,to,price,room) => {
   try {
+    selectedPasajeros?.map((pasajero)=>{
+      pasajero.id
+    })
     const fromFormated = sequelize.fn("DATE_FORMAT", from, "%d/%m/%Y");
     const toFromated = sequelize.fn("DATE_FORMAT", to, "%d/%m/%Y");
     let newBooking = await Booking.create({

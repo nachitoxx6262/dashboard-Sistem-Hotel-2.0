@@ -4,6 +4,7 @@ const initialState = {
   clients: [],
   companys: [],
   companysOption: [],
+  clientsOption: [],
   room:[]
 };
 
@@ -13,6 +14,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         clients: action.payload,
+        clientsOption: action.payload?.map((element) => element.name)
       };
     case GET_COMPANYS:
       return {

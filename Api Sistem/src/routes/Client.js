@@ -15,10 +15,9 @@ client.get("/", async (req, res) => {
 
 // POST DEL CLIENTE
 client.post("/", async (req, res) => {
-  console.log("ASdasd")
-  let { passengers, From, To, price,id } = req.body;
+  let {passengers} = req.body;
   try {
-    let cliente = await createClient(passengers, id, From, To, price);
+    let cliente = await createClient(passengers);
     res.json(cliente);
   } catch (err) {
     console.log(err);

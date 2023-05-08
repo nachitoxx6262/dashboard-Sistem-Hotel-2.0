@@ -1,10 +1,9 @@
 import axios from "axios";
-export const registerFamily = async(passengers, id,From,To,price)=>{
-  console.log(From,To)
+export const registerFamily = async(passengers)=>{
   let response = await axios({
         url: `http://localhost:3001/client`,
         method: "POST",
-        data: {passengers,From,To,price,id},
+        data: {passengers},
       });
       return response
 }

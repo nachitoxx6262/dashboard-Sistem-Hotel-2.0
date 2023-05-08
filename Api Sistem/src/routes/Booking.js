@@ -4,9 +4,8 @@ const booking = Router();
 
 
 booking.post("/",async (req, res) => {
-   console.log("asdasd")
-   let {name,price,person_number,from,to,description,roomId,status}  = req.body
-   let newBooking = await createBooking({name,price,person_number,from,to,description,roomId,status})
+   let {selectedPasajeros,from,to,price,room}  = req.body
+   let newBooking = await createBooking(selectedPasajeros,from,to,price,room)
 })
 
 module.exports = booking;
