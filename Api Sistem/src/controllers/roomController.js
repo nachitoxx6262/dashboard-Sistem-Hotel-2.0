@@ -67,7 +67,7 @@ const putStatusRoom = async (id, status) => {
         `El estado de la Habitación ${dataValues.number_room} fue actualizado con exito`
       );
       return {
-        message: `El estado de la Habitación ${dataValues.number_room} fue actualizado con exito`,
+        message: `El estado de la Habitación ${dataValues.number_room} fue actualizado a ${status.toUpperCase()}`,
       };
     } else {
       console.log(`La habitación ${id} no existe`);

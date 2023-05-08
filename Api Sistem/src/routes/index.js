@@ -4,6 +4,7 @@ const booking = require("./Booking.js")
 const client = require("./Client.js");
 const company = require("./Company.js")
 const room = require("./Room.js")
+const occupation = require("./Occupation.js")
 const router = Router();
 
 // Configurar los routers
@@ -12,5 +13,6 @@ router.use("/client", client);
 router.use("/company", company);
 router.use("/room", room);
 router.use("/booking", booking);
+router.use("/occupation", occupation);
 
 module.exports = router;
