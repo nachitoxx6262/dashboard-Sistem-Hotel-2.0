@@ -9,6 +9,9 @@ const {
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/hotel2`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  define:{
+    timestamps:false
+  }
 });
 const basename = path.basename(__filename);
 
@@ -30,17 +33,15 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Client,Company,Booking,Room,History ,Occupation} = sequelize.models;
+const { Client,Company,Booking,Room,History ,Occupation,OccupationHistory} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Client.belongsToMany(Booking, { through: 'clientes_reservas' });
 Booking.belongsToMany(Client, { through: 'clientes_reservas' });
 
-Room.hasMany(Booking);
-Booking.belongsTo(Room);
-
 Occupation.belongsToMany(Client, { through: 'occupation_client' });
+Room.hasMany(Occupation);
 Occupation.belongsTo(Room);
 
 module.exports = {

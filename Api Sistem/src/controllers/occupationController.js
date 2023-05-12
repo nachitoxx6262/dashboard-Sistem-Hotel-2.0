@@ -4,13 +4,15 @@ const sequelize = require("sequelize");
 
 const createOccupation = async (clientIds, roomId, price, from, to) => {
   try {
-      const room = await Room.findByPk(roomId);
-      if (!room) {
-        return { error: "Room not found" };
-      }
-      if (room._previousDataValues.status !== "libre"){
-        return { error: `La Habitacion esta en estado ${room._previousDataValues.status.toUpperCase()}` };
-      }
+    const room = await Room.findByPk(roomId);
+    if (!room) {
+      return { error: "Habitación no encontrada" };
+    }
+    if (room._previousDataValues.status !== "free") {
+      return {
+        error: `La Habitacion esta en estado ${room._previousDataValues.status.toUpperCase()}`,
+      };
+    }
     const clients = await Client.findAll({
       where: {
         id: clientIds,
@@ -18,17 +20,18 @@ const createOccupation = async (clientIds, roomId, price, from, to) => {
     });
 
     if (clients.length !== clientIds.length) {
-      return { error: "One or more clients not found" };
+      return { error: "Uno o más clientes no encontrados" };
     }
 
     const occupation = await Occupation.create({
       price,
       from,
       to,
+      occupants: clientIds.length,
     });
     await occupation.setRoom(room);
     await occupation.addClients(clients);
-    room.update({ status: "ocupada" });
+    room.update({ status: "full" });
     return occupation;
   } catch (error) {
     console.error(error);

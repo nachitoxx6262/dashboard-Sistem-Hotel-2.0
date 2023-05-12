@@ -1,12 +1,18 @@
 import axios from "axios";
+/// 🚨POST REGISTER CLIENTS (passengers)🚨
 export const registerFamily = async(passengers)=>{
-  let response = await axios({
+  try {
+    let response = await axios({
         url: `http://localhost:3001/client`,
         method: "POST",
         data: {passengers},
       });
       return response
+  } catch (e) {
+    console.error(e)
+  }
 }
+/// 🚨POST REGISTER COMPANY (data)🚨
 
 export const registerCompany = async(data)=>{
     let response = await axios({
@@ -16,6 +22,9 @@ export const registerCompany = async(data)=>{
       });
       return response
 }
+
+/// 🚨PUT UPDATE DATE CLIENT (fullfecha,id)🚨
+
 export const updateDate = async(fullfecha,id)=>{
   let response = await axios({
     url: `http://localhost:3001/client/date/${id}`,
@@ -24,6 +33,9 @@ export const updateDate = async(fullfecha,id)=>{
   });
   return response
 }
+
+/// 🚨POST REGISTER ROOM (number,capacity,type,status)🚨
+
 export const registerRoom = async(number,capacity,type,status)=>{
   let response = await axios({
     url: `http://localhost:3001/room`,
@@ -32,6 +44,7 @@ export const registerRoom = async(number,capacity,type,status)=>{
   })
   return response
 }
+/// 🚨DELETE ROOM (id)🚨
 
 export const deleteRoom = async(id)=>{
   let response = await axios({
@@ -42,6 +55,7 @@ export const deleteRoom = async(id)=>{
   console.log(response)
   return response
 }
+/// 🚨UPDATE STATUS ROOM  (id,status)🚨
 
 export const updateStatusRoom = async(id,status)=>{
   console.log(id,status)
@@ -53,12 +67,12 @@ export const updateStatusRoom = async(id,status)=>{
   console.log(response)
   return response
 }
-export const bookingRoom= async(data)=>{
-  console.log(data.roomId)
+/// 🚨POST OCCUPATION ROOM (clienIds,passangerId,price,from,to)🚨
+export const occupationRoom= async(occupation)=>{
   let response = await axios({
-        url: "http://localhost:3001/booking",
+        url: "http://localhost:3001/occupation",
         method: "POST",
-        data: data,
+        data: occupation,
       })
       return response;  
 }

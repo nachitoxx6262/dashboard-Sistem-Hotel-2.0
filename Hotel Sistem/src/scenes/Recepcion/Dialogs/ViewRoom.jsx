@@ -14,12 +14,12 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getclients } from "../../Redux/action";
-import { registerFamily } from "../axiosFunctions";
+import { getclients } from "../../../Redux/action";
+import { occupationRoom, registerFamily } from "../../axiosFunctions";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { dateFormater } from "../functions";
+import { dateFormater } from "../../functions";
 export const ViewRoom = ({ room }) => {
   let { id, number_room, capacity, type, status } = room;
   const [from, setFrom] = useState(new Date());
@@ -39,7 +39,18 @@ export const ViewRoom = ({ room }) => {
   //################### SUBMIT ######################################
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(selectedPasajeros, from, to, price, room);
+    let passangerId = selectedPasajeros.map((passanger) => {
+      return passanger.id;
+    });
+    occupationRoom({
+      clientIds: passangerId,
+      roomId: room.id,
+      price,
+      from,
+      to,
+    });
+
+    setOpen(false);
   };
   // ######################################################################################
   return (

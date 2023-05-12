@@ -5,11 +5,14 @@ const occupation = Router();
 occupation.post("/", async (req, res) => {
     let {clientIds, roomId, price, from, to} = req.body;
     try {
-      let response = await createOccupation(clientIds, roomId, price, from, to);
-      res.json(response);
-    } catch (err) {
-      console.log(err);
-      res.status(404).json({ APIerror: err.message });
+      const occupation = await createOccupation(clientIds, roomId, price, from, to);
+      if (occupation.error) {
+        return res.status(400).json({ error: occupation.error });
+      }
+      return res.status(201).json({ message: "La ocupación se creó exitosamente", data: occupation });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Ocurrió un error al crear la ocupación" });
     }
   });
 

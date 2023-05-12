@@ -1,7 +1,8 @@
 const { DataTypes } = require("sequelize");
+const OccupationHistory = require("./OccupationHistory");
+
 module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define("Occupation", {
+  const Occupation = sequelize.define("Occupation", {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -20,5 +21,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    occupants: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   });
+
 };

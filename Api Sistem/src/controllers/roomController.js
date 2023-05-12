@@ -1,13 +1,26 @@
-const { Room, Booking } = require("../db.js");
+const { Room, Booking, Occupation,Client } = require("../db.js");
 const { Op, DataTypes } = require("sequelize");
 const sequelize = require("sequelize");
 
 const getRoom = async () => {
-  const habitaciones = await Room.findAll({
+  const rooms = await Room.findAll({
     include: [
       {
-        model: Booking,
-        attributes: ["price"],
+        model: Occupation,
+        attributes: ["id", "price", "occupants"], 
+        include: [
+          {
+            model: Client,
+            attributes: ["id", "name", "dni"], // especificar las columnas que se quieren obtener del modelo Client
+            through: { attributes: [] } // Omitir la columna "createdAt" y "updatedAt" de la tabla "occupation_clients"
+          }
+        ],
+        where: {
+          [Op.or]: [
+            { from: { [Op.lte]: new Date() }, to: { [Op.gte]: new Date() } },
+            { to: { [Op.gt]: new Date() } },
+          ],
+        },
         required: false,
       },
     ],
@@ -18,16 +31,17 @@ const getRoom = async () => {
       "type",
       "status",
       [
-        sequelize.literal(
-          '(SELECT COALESCE(SUM(person_number), 0) FROM "Bookings" WHERE "RoomId" = "Room"."id")'
-        ),
-        "person_number",
+        sequelize.literal('to_char("Occupations"."from", \'DD/MM/YYYY\')'),
+        "formattedFrom",
       ],
-      [sequelize.fn("COALESCE", sequelize.col("Bookings.price"), 0), "price"],
+      [
+        sequelize.literal('to_char("Occupations"."to", \'DD/MM/YYYY\')'),
+        "formattedTo",
+      ],
+
     ],
   });
-  console.log(habitaciones);
-  return habitaciones;
+  return rooms;
 };
 const postRoom = async (number, capacity, type, status) => {
   try {
@@ -41,7 +55,7 @@ const postRoom = async (number, capacity, type, status) => {
     let habitacion = await Room.create({
       number_room: number,
       capacity: capacity,
-      status: status,
+      status: "free",
       type: type,
     });
     console.log(`La habitacion N° ${number} ha sido creada con exito`);
@@ -67,7 +81,9 @@ const putStatusRoom = async (id, status) => {
         `El estado de la Habitación ${dataValues.number_room} fue actualizado con exito`
       );
       return {
-        message: `El estado de la Habitación ${dataValues.number_room} fue actualizado a ${status.toUpperCase()}`,
+        message: `El estado de la Habitación ${
+          dataValues.number_room
+        } fue actualizado a ${status.toUpperCase()}`,
       };
     } else {
       console.log(`La habitación ${id} no existe`);
