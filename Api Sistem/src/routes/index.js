@@ -1,11 +1,13 @@
 const { Router } = require("express");
-
 const booking = require("./Booking.js")
 const client = require("./Client.js");
 const company = require("./Company.js")
 const room = require("./Room.js")
+
 const occupation = require("./Occupation.js")
 const router = Router();
+
+
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);

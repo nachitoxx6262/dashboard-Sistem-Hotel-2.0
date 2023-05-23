@@ -25,6 +25,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    pay:{
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    }
   });
 
 };

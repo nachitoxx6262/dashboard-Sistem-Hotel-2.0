@@ -2,18 +2,24 @@ import axios from 'axios';
 export const GET_CLIENTS = 'GET_CLIENTS';
 export const GET_COMPANYS = 'GET_COMPANYS';
 export const GET_ROOM = 'GET_ROOM';
+const token = localStorage.getItem("token");
+const config = {
+  headers: { Authorization: `Bearer ${token}` }
+};
+
+
 
 /// GET DE HABITACIONES
 export const getRooms = () => {
   return function (dispatch) {
-  axios.get(`http://localhost:3001/room`).then((response) => {
+  axios.get(`http://localhost:3001/room`,config).then((response) => {
     dispatch({ type: GET_ROOM, payload: response.data })
   })}
 }
 ///////// CLIENTESS #########################################
 export const getclients = () => {
   return function (dispatch) {
-    axios.get('http://localhost:3001/client').then((response) => {
+    axios.get('http://localhost:3001/client',config).then((response) => {
       dispatch({ type: GET_CLIENTS, payload: response.data });
     });
   };
@@ -22,7 +28,7 @@ export const getclients = () => {
 ///////// EMPRESAS #########################################
 export const getCompany = () => {
   return function (dispatch) {
-    axios.get('http://localhost:3001/company').then((response) => {
+    axios.get('http://localhost:3001/company',config).then((response) => {
       dispatch({ type: GET_COMPANYS, payload: response.data });
     });
   };
@@ -43,7 +49,7 @@ export const updateClient = (
   description
 ) => {
   axios
-    .put(`http://localhost:3001/client/${id}`, {
+    .put(`http://localhost:3001/client/${id}`,config, {
       name,
       gender,
       dni,
@@ -63,7 +69,7 @@ export const updateClient = (
 ///////// DELETE CLIENT #########################################
 
 export const deleteClient = (id) => {
-  axios.delete(`http://localhost:3001/client/${id}`).then((response) => {
+  axios.delete(`http://localhost:3001/client/${id}`,config).then((response) => {
     console.log(response);
   });
 };
@@ -81,7 +87,7 @@ export const updateCompany = (
   blacklist
 ) => {
   axios
-    .put(`http://localhost:3001/company/${id}`, {
+    .put(`http://localhost:3001/company/${id}`,config, {
       id,
       name,
       cuit,
@@ -100,7 +106,7 @@ export const updateCompany = (
 
 export const deleteCompany = (id) => {
   try {
-    axios.delete(`http://localhost:3001/company/${id}`).then((response) => {
+    axios.delete(`http://localhost:3001/company/${id}`,config).then((response) => {
       return response;
     });
   } catch (error) {

@@ -6,6 +6,7 @@ const {
   deleteClient,
 } = require("../controllers/clientController.js");
 const client = Router();
+const isAuthenticated = require("../app.js")
 // #################🚨 GET 🚨    ####################
 
 client.get("/", async (req, res) => {

@@ -1,4 +1,4 @@
-const { Room, Client, Occupation } = require("../db.js");
+const { Room, Client, Occupation ,OccupationHistory} = require("../db.js");
 const { Op, DataTypes } = require("sequelize");
 const sequelize = require("sequelize");
 
@@ -32,6 +32,14 @@ const createOccupation = async (clientIds, roomId, price, from, to) => {
     await occupation.setRoom(room);
     await occupation.addClients(clients);
     room.update({ status: "full" });
+
+    const occupationHistory = await OccupationHistory.create({
+      price,
+      from,
+      to,
+      room: room._previousDataValues.number_room,
+      clientId: clientIds
+    });
     return occupation;
   } catch (error) {
     console.error(error);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -20,21 +20,32 @@ import RegisterFactory from "./scenes/Registrar/RegisterFactory";
 import NaDni from "./scenes/Registrar/NaDni";
 import Recepcion from "./scenes/Recepcion/Recepcion";
 import RegisterRoom from "./scenes/Registrar/RoomRegister/RegisterRoom";
+import Login from "./scenes/Login";
+import { useLocation } from 'react-router-dom';
 // import Calendar from "./scenes/calendar/calendar"
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const [isLoginPage, setIsLoginPage] = useState(false);
 
+  useEffect(() => {
+    if (location.pathname === '/login') {
+      setIsLoginPage(true);
+    } else {
+      setIsLoginPage(false);
+    }
+  }, [location.pathname]);
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+        {isLoginPage ? null : <Sidebar />}
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+          {isLoginPage ? null : <Topbar  />}
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/login" element={<Login setIsLoginPage={setIsLoginPage}/>} />
               <Route path="/team" element={<Team />} />
               <Route path="/client" element={<Client />} />
               <Route path="/company" element={<CompanyTable />} />
