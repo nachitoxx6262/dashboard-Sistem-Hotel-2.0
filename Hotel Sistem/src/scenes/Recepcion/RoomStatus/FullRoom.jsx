@@ -7,8 +7,7 @@ import { FullDetailRoom } from "../Dialogs/FullDetailRoom";
 import { updateStatusRoom } from "../../axiosFunctions";
 const FreeRoom = ({ room }) => {
   let { id, number_room, capacity, type, status } = room;
-  let { from, to, price, occupants, RoomId, Clients } = room.Occupations[0];
-  console.log(from);
+  let { from, to, price, occupants, RoomId, Clients } = room.Occupations[0]
   // COLORS
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

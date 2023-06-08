@@ -4,6 +4,7 @@ const occupation = Router();
 
 occupation.post("/", async (req, res) => {
     let {clientIds, roomId, price, from, to} = req.body;
+    console.log(clientIds, roomId, price, from, to)
     try {
       const occupation = await createOccupation(clientIds, roomId, price, from, to);
       if (occupation.error) {

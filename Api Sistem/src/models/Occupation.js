@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     occupants: {
       type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
     },
     pay:{
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
     }
   });
 
