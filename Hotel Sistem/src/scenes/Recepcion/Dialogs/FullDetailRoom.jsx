@@ -15,7 +15,8 @@ import {
 import { useState } from "react";
 export const FullDetailRoom = ({ room }) => {
     let { id, number_room, capacity, type, status,formattedFrom,formattedTo } = room;
-    let { from, to, price, occupants, RoomId, Clients } = room.Occupations[0];
+    let { from, to, price, occupants, RoomId, Clients } = room.Occupations.length > 0 ? room.Occupations[0] : {};
+
 
     const [open, setOpen] = useState(false);
   return (

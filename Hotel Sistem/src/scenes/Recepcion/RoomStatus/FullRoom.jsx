@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
 import { ViewRoom } from "../Dialogs/ViewRoom";
@@ -6,8 +7,17 @@ import ReportIcon from "@mui/icons-material/Report";
 import { FullDetailRoom } from "../Dialogs/FullDetailRoom";
 import { updateStatusRoom } from "../../axiosFunctions";
 const FreeRoom = ({ room }) => {
+  const [showOccupied, setShowOccupied] = useState(true);
+  const [isOccupied, setIsOccupied] = useState(room.Occupations.length > 0);
+
   let { id, number_room, capacity, type, status } = room;
-  let { from, to, price, occupants, RoomId, Clients } = room.Occupations[0]
+  let { from, to, price, occupants, RoomId, Clients} = room.Occupations.length > 0 ? room.Occupations[0] : {};
+  
+  const handleDesocuparClick = () => {
+      updateStatusRoom(id, "maintenance"); // Assuming this updates the room status in the backend
+      setIsOccupied(false); // Update the room status in the local state
+      setShowOccupied(false); // Change component display to show the new component
+    };
   // COLORS
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -44,7 +54,9 @@ const FreeRoom = ({ room }) => {
           gap="5px"
         >
           <FullDetailRoom room={room} />
-          <Button variant="outlined" onClick={()=>updateStatusRoom(id,"maintenance")}>Desocupar</Button>
+          <Button variant="outlined" onClick={handleDesocuparClick}>
+            Desocupar
+          </Button>
         </Box>
       </Box>
       <Box>

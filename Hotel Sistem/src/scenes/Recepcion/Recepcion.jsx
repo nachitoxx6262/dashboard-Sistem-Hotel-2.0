@@ -1,4 +1,5 @@
 import { Box, Typography, useTheme, Button } from "@mui/material";
+import React,{ useState } from "react";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +15,7 @@ const Recepcion = () => {
   let rooms = useSelector((state) => state.room);
   useEffect(() => {
     dispatch(getRooms());
-  }, [dispatch]);
+  }, [dispatch,rooms]);
 
   return (
     <Box m="20px">
@@ -26,21 +27,20 @@ const Recepcion = () => {
         gap="2rem"
         marginTop="10px"
       >
-        {rooms.map((room) => {
-          return (
-            <>
-              {room.status == "full" ? (
-                <FullRoom room={room} />
-              ) : room.status == "free" ? (
-                <FreeRoom room={room} />
-              ) : room.status == "maintenance" ? (
-                <MaintenanceRoom room={room} />
-              ) : (
-                <></>
-              )}
-            </>
-          );
-        })}
+        {rooms.map((room) => (
+  <React.Fragment key={room.id}>
+    {room.status === "full" ? (
+      <FullRoom room={room} />
+    ) : room.status === "free" ? (
+      <FreeRoom room={room} />
+    ) : room.status === "maintenance" ? (
+      <MaintenanceRoom room={room} />
+    ) : (
+      <></>
+    )}
+  </React.Fragment>
+))}
+
       </Box>
     </Box>
   );

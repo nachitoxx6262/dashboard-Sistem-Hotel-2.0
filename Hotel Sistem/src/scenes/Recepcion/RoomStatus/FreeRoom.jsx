@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
 import CheckIcon from "@mui/icons-material/Check";
 import { ViewRoom } from "../Dialogs/ViewRoom";
 import DeleteRoomCard from "../DeleteRoomCard";
-
 const FreeRoom = ({ room }) => {
   let { id, number_room, capacity, type, status, person_number, price } = room;
   // COLORS
